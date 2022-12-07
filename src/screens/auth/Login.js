@@ -1,48 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
 import {
-  Text,
-  View,
-  TextInput,
-  StyleSheet,
   Image,
   Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  ScrollView,
+  View,
 } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import Colors from '../../static/color';
 import CustomButton from '../../components/micro/CustomButton';
-import { http_auth } from '../../config';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import Footer from '../../components/FooterComponent';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import ScreenDimension from '../../static/dimensions';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  //   const { http_auth } = Config();
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
   const role = route.params.role;
 
-  const loginHandler = async () => {
-    const data = {
-      email: email,
-      password: password,
-    };
-    await http_auth
-      .post('/login', data)
-      .then(async (res) => {
-        await AsyncStorage.setItem('token', res.data.data.access_token);
-        console.log(res.data.data.data);
-        await AsyncStorage.setItem('data', JSON.stringify(res.data.data.data));
-        navigation.navigate('home');
-      })
-      .catch((err) => {
-        console.log(data);
-        console.log(err);
-      });
+  const registerHandler = () => {
+    navigation.navigate('register', {
+      role: role,
+    });
   };
 
-  const openRegisterHandler = () => {
-    navigation.navigate('register', {
+  const loginHandler = () => {
+    navigation.navigate('home', {
+      role: role,
+    });
+  };
+
+  const forgotMenu = () => {
+    navigation.navigate('forgotEmail', {
       role: role,
     });
   };
@@ -50,50 +41,76 @@ function Login() {
   return (
     <>
       <StatusBar style='light' />
-      <View style={styles.container}>
-        <Image
-          source={require('../../../assets/logo.png')}
-          style={styles.logo}
-        />
-        <View style={styles.innerContainer}>
+      <KeyboardAwareScrollView
+        style={styles.container}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <View style={styles.headerContainer}>
+          <Text style={styles.title}>
+            Login {role === 'mahasiswa' ? 'Mahasiswa' : 'Dosen'}
+          </Text>
+          <Image
+            style={styles.imgLogo}
+            source={require('../../../assets/logo.png')}
+          />
+        </View>
+        {/* End */}
+        <View style={styles.contentContainer}>
+          {/* Form */}
           <View>
-            <Text style={styles.label}>Email</Text>
-            <TextInput
-              placeholder='Masukkan email'
-              keyboardType='email-address'
-              style={styles.input}
-              placeholderTextColor='#D4D4D4A8'
-              onChangeText={(evt) => setEmail(evt)}
-            />
+            {/* Email */}
+            <View style={styles.formGroup}>
+              <Text style={styles.label}>
+                Email
+                <Text style={{ color: 'red', fontWeight: '800' }}>*</Text>
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholder='Masukkan email Anda'
+                keyboardType='email-address'
+                autoCapitalize='none'
+              />
+            </View>
+            {/* Password */}
+            <View style={styles.formGroup}>
+              <Text style={styles.label}>
+                Password
+                <Text style={{ color: 'red', fontWeight: '800' }}>*</Text>
+              </Text>
+              <TextInput
+                style={styles.input}
+                placeholder='*************'
+                keyboardType='default'
+                autoCapitalize='none'
+                secureTextEntry={true}
+              />
+            </View>
           </View>
-          <View>
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              placeholder='Masukkan Password'
-              keyboardType='default'
-              secureTextEntry={true}
-              style={styles.input}
-              placeholderTextColor='#D4D4D4A8'
-              onChangeText={(evt) => setPassword(evt)}
-            />
-          </View>
-          {/* <Text style={{ color: '#9F1818' }}>
-            Login gagal, silahkan coba lagi
-          </Text> */}
+          {/* End Form */}
+          <Pressable
+            onPress={forgotMenu}
+            style={{ marginTop: 10 }}
+          >
+            <Text>Lupa password?</Text>
+          </Pressable>
           <CustomButton
             style={styles.button}
-            title={'Login'}
+            title='Login'
             titleStyle={styles.buttonTitle}
             onPress={loginHandler}
           />
+          <View style={styles.register}>
+            <Text style={{ color: Colors.black, fontWeight: '600' }}>
+              Belum Punya akun?
+            </Text>
+            <Pressable onPress={registerHandler}>
+              <Text style={styles.registerText}>Registrasi</Text>
+            </Pressable>
+          </View>
+          {/* Footer */}
+          <Footer />
         </View>
-        <View style={styles.register}>
-          <Text style={{ color: '#ffffff' }}>Belum Punya akun?</Text>
-          <Pressable onPress={openRegisterHandler}>
-            <Text style={styles.registerText}>Registrasi</Text>
-          </Pressable>
-        </View>
-      </View>
+      </KeyboardAwareScrollView>
     </>
   );
 }
@@ -103,42 +120,63 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.primarBlue,
+    height: ScreenDimension.ScreenHeight,
+  },
+  headerContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#5271FF',
   },
-  innerContainer: {
-    padding: 5,
-    width: '80%',
+  imgLogo: {
+    height: 150,
+    width: 150,
+    marginVertical: 10,
   },
-  button: {
-    paddingVertical: 10,
-    borderRadius: 6,
-    backgroundColor: '#4DAEE2',
-    marginTop: 10,
+  title: {
+    fontFamily: 'PoppinsBold',
+    fontSize: 25,
+    color: Colors.white,
   },
-  buttonTitle: {
-    textAlign: 'center',
-    color: 'white',
-  },
-  input: {
-    height: 50,
-    borderBottomColor: '#ffffff',
-    borderBottomWidth: 2,
-    color: 'white',
-  },
-  logo: {
-    height: 200,
-    width: 200,
+  contentContainer: {
+    flex: 1,
+    marginTop: 20,
+    backgroundColor: Colors.white,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
+    paddingHorizontal: 30,
+    paddingVertical: 40,
   },
   label: {
-    color: 'white',
+    color: Colors.primaryText,
+    fontFamily: 'PoppinsSemiBold',
+    fontSize: 16,
+  },
+  input: {
+    borderBottomColor: Colors.primaryText,
+    borderBottomWidth: 1,
+    height: 50,
+  },
+  formGroup: {
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: Colors.primarBlue,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 20,
+  },
+  buttonTitle: {
+    color: Colors.white,
+    fontFamily: 'PoppinsMedium',
+    textAlign: 'center',
   },
   register: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   registerText: {
-    color: '#FFFFFF',
+    color: Colors.primaryText,
     textDecorationLine: 'underline',
+    marginLeft: 5,
+    fontFamily: 'PoppinsRegular',
   },
 });

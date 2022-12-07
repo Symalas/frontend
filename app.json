@@ -3,13 +3,14 @@
     "name": "frontend",
     "slug": "frontend",
     "version": "1.0.0",
+    "description": "This is symalas project",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#5271FF"  
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,13 +22,16 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.ferdirns.symalas",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/logo.png"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "androidStatusBar": {
+      "translucent": true
     }
   }
 }

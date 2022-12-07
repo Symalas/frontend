@@ -1,38 +1,46 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import HeaderComponent from '../components/HeaderComponent';
+import { useRoute } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-// import Config from '../config';
-import { http } from '../config';
+import HomeComponent from '../components/student/HomeComponent';
+import ScreenDimension from '../static/dimensions';
+import Ballon from '../components/micro/Ballon';
+import ModalInput from '../components/micro/Modal';
+import { useState } from 'react';
 
 function Home() {
-  //   const { HTTP } = Config();
-  const [email, setEmail] = useState('');
-  const [res, setRes] = useState([]);
+  let [modalVisible, setModalVisible] = useState(false);
+  const route = useRoute();
+  const role = route.params.role;
 
-  const getData = async () => {
-    const data = await AsyncStorage.getItem('data');
-    const res = JSON.parse(data).email;
-    setEmail(res);
-    http
-      .get(`/class-mhs/${res}`)
-      .then((res) => {
-        setRes(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const modalOpen = () => {
+    setModalVisible(true);
   };
-  useEffect(() => {
-    getData();
-  }, [res]);
+  const modalClose = () => {
+    setModalVisible(false);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text>Daftar Kelas yang diikuti {email}</Text>
-      {res.map((items, i) => {
-        return <Text key={i}>{items.name}</Text>;
-      })}
-    </View>
+    <>
+      <StatusBar style='dark' />
+      <ModalInput
+        visible={modalVisible}
+        closeModal={modalClose}
+      />
+      <SafeAreaView style={styles.container}>
+        <HeaderComponent
+          title={role === 'mahasiswa' ? 'Kelas' : 'Mata Kuliah'}
+        />
+        <View style={styles.contentContainer}>
+          <HomeComponent />
+        </View>
+        <Ballon
+          onPress={modalOpen}
+          icon='plus'
+        />
+      </SafeAreaView>
+    </>
   );
 }
 
@@ -40,8 +48,13 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
+    width: ScreenDimension.ScreenWidth,
+    height: ScreenDimension.ScreenHeight,
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  contentContainer: {
+    paddingHorizontal: 35,
+    marginTop: 20,
+    height: ScreenDimension.ScreenHeight - 160,
   },
 });
