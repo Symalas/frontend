@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { FlatList, TouchableOpacity, View } from 'react-native';
-import TaskCard from '../micro/TaskCard';
+import TaskCard from '../../micro/student/task/TaskCard';
 
 function TaskList() {
   const navigation = useNavigation();

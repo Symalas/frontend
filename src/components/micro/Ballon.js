@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from '../../static/color';
-function Ballon({ onPress, icon }) {
+function Ballon({ onPress, icon, optionalStyle }) {
   const plus = () => {
     return (
       <Ionicons
@@ -22,14 +22,13 @@ function Ballon({ onPress, icon }) {
       />
     );
   };
+
   return (
     <Pressable
       onPress={onPress}
-      style={styles.circle}
+      style={[styles.circle, optionalStyle]}
     >
       {icon === 'plus' ? plus : icon === 'folder' ? folder : ''}
-      {/* <View style={styles.circle}>
-      </View> */}
     </Pressable>
   );
 }
@@ -44,8 +43,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 60,
     right: 30,
-    // borderColor: Colors.primarBlue,
-    // borderWidth: 2,
     borderRadius: 100,
     height: 60,
     width: 60,

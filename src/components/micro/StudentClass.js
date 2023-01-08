@@ -18,16 +18,13 @@ export default StudentClass;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    borderBottomColor: Colors.black,
-    borderBottomWidth: 1,
-    paddingBottom: 8,
     marginTop: 10,
   },
   title: {
     fontFamily: 'PoppinsBold',
     fontSize: 18,
+    marginLeft: 20,
   },
   img: {
     width: 50,

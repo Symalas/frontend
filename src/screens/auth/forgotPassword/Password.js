@@ -49,7 +49,7 @@ function PasswordForgot() {
             </Text>
           </View>
           <View style={styles.formContainer}>
-            <Text style={styles.label}>Email Anda</Text>
+            <Text style={styles.label}>Password Baru Anda</Text>
             <TextInput
               style={styles.input}
               placeholder='********'
@@ -59,7 +59,7 @@ function PasswordForgot() {
             />
           </View>
           <View style={styles.formContainer}>
-            <Text style={styles.label}>Email Anda</Text>
+            <Text style={styles.label}>Konfirmasi Password Baru Anda</Text>
             <TextInput
               style={styles.input}
               placeholder='********'

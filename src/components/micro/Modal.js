@@ -12,7 +12,7 @@ import Colors from '../../static/color';
 import ScreenDimension from '../../static/dimensions';
 import CustomButton from './CustomButton';
 
-function ModalInput({ visible, closeModal }) {
+function ModalInput({ visible, closeModal, menu }) {
   return (
     <>
       <Modal
@@ -24,11 +24,31 @@ function ModalInput({ visible, closeModal }) {
           <View style={styles.innerContainer}>
             <KeyboardAvoidingView behavior='position'>
               <View style={styles.card}>
-                <Text style={styles.title}>Tambah Kelas Baru</Text>
+                <Text style={styles.title}>
+                  {menu === 'baru'
+                    ? 'Tambah Kelas Baru'
+                    : menu === 'folder'
+                    ? 'Tambah Folder Baru'
+                    : menu === 'matkul'
+                    ? 'Tambah Matakuliah'
+                    : menu === 'kelas'
+                    ? 'Tambah Kelas Baru'
+                    : 'Masukkan Kode Kelas'}
+                </Text>
                 <View style={styles.formContainer}>
                   <TextInput
                     style={styles.input}
-                    placeholder='Masukkan Nama Kelas Baru'
+                    placeholder={
+                      menu === 'baru'
+                        ? 'Masukkan Nama Kelas Baru'
+                        : menu === 'folder'
+                        ? 'Masukkan Folder Baru'
+                        : menu === 'matkul'
+                        ? 'Tambah Matakuliah Baru'
+                        : menu === 'kelas'
+                        ? 'Tambah Kelas Baru'
+                        : 'Masukkan Kode Kelas'
+                    }
                   />
                   <View style={styles.buttonContainer}>
                     <CustomButton

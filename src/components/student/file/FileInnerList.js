@@ -1,8 +1,8 @@
-import { FlatList, Pressable } from 'react-native';
-import File from '../micro/File';
+import { FlatList, Pressable, TouchableOpacity } from 'react-native';
+import File from '../../micro/student/file/File';
 import { useNavigation } from '@react-navigation/native';
 
-function FileList() {
+function FileInnerList() {
   const navigation = useNavigation();
 
   const data = [
@@ -22,38 +22,6 @@ function FileList() {
       id: 4,
       title: 'File Keempat',
     },
-    {
-      id: 5,
-      title: 'File Kelima',
-    },
-    {
-      id: 6,
-      title: 'File Keenam',
-    },
-    {
-      id: 7,
-      title: 'File Pertama',
-    },
-    {
-      id: 8,
-      title: 'File Kedua',
-    },
-    {
-      id: 9,
-      title: 'File Ketiga',
-    },
-    {
-      id: 10,
-      title: 'File Keempat',
-    },
-    {
-      id: 11,
-      title: 'File Kelima',
-    },
-    {
-      id: 12,
-      title: 'File Keenam',
-    },
   ];
 
   const Item = ({ item }) => {
@@ -70,7 +38,7 @@ function FileList() {
   );
 }
 
-export default FileList;
+export default FileInnerList;
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -83,3 +51,12 @@ export default FileList;
 //     width: 100,
 //   },
 // });
+
+{
+  /* <FlatList
+  data={data}
+  key={(item) => item.id}
+  renderItem={Item}
+  numColumns={2}
+/>; */
+}

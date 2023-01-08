@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../static/color';
-function Footer({ extraStyle }) {
+function Footer({ extraStyle, extraTitle }) {
   return (
     <View style={[styles.bottomContainer, extraStyle]}>
-      <Text style={styles.titleFooter}>Created by SyMalas Team</Text>
+      <Text style={[styles.titleFooter, extraTitle]}>
+        Created by SyMalas Team
+      </Text>
     </View>
   );
 }

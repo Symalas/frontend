@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HeaderComponent from '../../components/HeaderComponent';
-import TaskList from '../../components/student/TaskList';
-import Colors from '../../static/color';
-import ScreenDimension from '../../static/dimensions';
+import HeaderComponent from '../../../components/HeaderComponent';
+import TaskList from '../../../components/student/task/TaskList';
+import Colors from '../../../static/color';
+import ScreenDimension from '../../../static/dimensions';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -12,7 +12,10 @@ function StudentTask() {
     const navigation = useNavigation();
 
     const handleTaskCollectionMenu = () => {
-      navigation.navigate('taskCollection');
+      navigation.navigate('taskCollection', {
+        header: false,
+      });
+      navigation.setOptions({ title: 'anjay' });
     };
 
     return (

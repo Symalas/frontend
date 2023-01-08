@@ -1,24 +1,34 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Platform, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import HeaderComponent from '../../components/HeaderComponent';
-import File from '../../components/micro/File';
-import FileList from '../../components/student/FileList';
-import BottomNav from '../../components/BottomNav';
-import ScreenDimension from '../../static/dimensions';
-import Colors from '../../static/color';
-import Ballon from '../../components/micro/Ballon';
+import HeaderComponent from '../../../components/HeaderComponent';
+import FileList from '../../../components/student/file/FileList';
+import BottomNav from '../../../components/BottomNav';
+import ScreenDimension from '../../../static/dimensions';
+import Colors from '../../../static/color';
+import Ballon from '../../../components/micro/Ballon';
+import ModalInput from '../../../components/micro/Modal';
+import { useState } from 'react';
 
 function FileScreen() {
+  const [visible, setVisible] = useState(false);
   return (
     <>
+      <ModalInput
+        visible={visible}
+        closeModal={() => setVisible(false)}
+        menu='folder'
+      />
       <StatusBar style='dark' />
       <SafeAreaView style={styles.container}>
         <HeaderComponent title='Berkas' />
         <View style={styles.fileContainer}>
           <FileList />
         </View>
-        <Ballon icon='folder' />
+        <Ballon
+          onPress={() => setVisible(true)}
+          icon='folder'
+        />
       </SafeAreaView>
     </>
   );

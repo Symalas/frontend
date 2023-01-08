@@ -1,19 +1,52 @@
-import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  Pressable,
+} from 'react-native';
 import Colors from '../static/color';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-function HeaderComponent({ title, extraTitleStyle }) {
+function HeaderComponent({ title, extraTitleStyle, searchVisible, subTitle }) {
+  const navigation = useNavigation();
+  const profileHandler = () => {
+    navigation.navigate('userProfile');
+  };
   return (
     <View style={styles.container}>
+      {/* Sini */}
       <View style={styles.titleContainer}>
-        <Text style={[styles.title, extraTitleStyle]}>{title}</Text>
-        <Image
-          style={styles.img}
-          source={require('../../assets/pp.jpg')}
-        />
+        <View>
+          <Text style={[styles.title, extraTitleStyle]}>{title}</Text>
+          <Text
+            style={[
+              styles.subTitle,
+              subTitle === undefined
+                ? { display: 'none' }
+                : { display: 'flex' },
+            ]}
+          >
+            {subTitle}
+          </Text>
+        </View>
+        <Pressable onPress={profileHandler}>
+          <Image
+            style={styles.img}
+            source={require('../../assets/pp.jpg')}
+          />
+        </Pressable>
       </View>
+      {/* Sampe */}
       {/* Search */}
-      <View style={styles.searchContainer}>
+      <View
+        style={[
+          styles.searchContainer,
+          searchVisible === false ? { display: 'none' } : '',
+        ]}
+      >
         <Ionicons
           name='search'
           size={20}
@@ -41,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: '#083056',
+    color: Colors.headerTitle,
     fontFamily: 'PoppinsBold',
     fontSize: 25,
   },
@@ -62,5 +95,10 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     height: 40,
     width: '90%',
+  },
+  subTitle: {
+    fontFamily: 'PoppinsRegular',
+    fontSize: 16,
+    color: Colors.headerTitle,
   },
 });

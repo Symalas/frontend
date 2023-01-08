@@ -1,17 +1,22 @@
-import { Image, StyleSheet, View, Text } from 'react-native';
-function File({ title }) {
+import { Image, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+
+function File({ title, onPress }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.9}
+      onPress={onPress}
+      style={styles.container}
+    >
       <View>
         <Image
           style={styles.fileImg}
-          source={require('../../../assets/file.png')}
+          source={require('../../../../../assets/file.png')}
         />
         <Text style={{ textAlign: 'center', fontFamily: 'PoppinsMedium' }}>
           {title}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

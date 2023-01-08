@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Colors from '../../static/color';
+import Colors from '../../../../static/color';
 
 function TaskCard({ task, time }) {
   return (

@@ -14,11 +14,15 @@ import CustomButton from '../../components/micro/CustomButton';
 import Footer from '../../components/FooterComponent';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ScreenDimension from '../../static/dimensions';
+import { useState } from 'react';
 
 function Login() {
   const route = useRoute();
   const navigation = useNavigation();
   const role = route.params.role;
+  const [email, setEmail] = useState();
+  const [pw, setPw] = useState();
+  const [failed, setFailed] = useState(false);
 
   const registerHandler = () => {
     navigation.navigate('register', {
@@ -27,9 +31,13 @@ function Login() {
   };
 
   const loginHandler = () => {
-    navigation.navigate('home', {
-      role: role,
-    });
+    if (email === 'admin@mail.com' && pw === '12345') {
+      navigation.navigate('home', {
+        role: role,
+      });
+    } else {
+      setFailed(true);
+    }
   };
 
   const forgotMenu = () => {
@@ -59,6 +67,14 @@ function Login() {
           {/* Form */}
           <View>
             {/* Email */}
+            <Text
+              style={[
+                styles.failed,
+                failed === true ? { display: 'flex' } : { display: 'none' },
+              ]}
+            >
+              Login Gagal Silahkan Coba Lagi
+            </Text>
             <View style={styles.formGroup}>
               <Text style={styles.label}>
                 Email
@@ -69,12 +85,13 @@ function Login() {
                 placeholder='Masukkan email Anda'
                 keyboardType='email-address'
                 autoCapitalize='none'
+                onChangeText={(e) => setEmail(e)}
               />
             </View>
             {/* Password */}
             <View style={styles.formGroup}>
               <Text style={styles.label}>
-                Password
+                Kata Sandi
                 <Text style={{ color: 'red', fontWeight: '800' }}>*</Text>
               </Text>
               <TextInput
@@ -83,6 +100,7 @@ function Login() {
                 keyboardType='default'
                 autoCapitalize='none'
                 secureTextEntry={true}
+                onChangeText={(e) => setPw(e)}
               />
             </View>
           </View>
@@ -91,8 +109,9 @@ function Login() {
             onPress={forgotMenu}
             style={{ marginTop: 10 }}
           >
-            <Text>Lupa password?</Text>
+            <Text style={styles.btnForgot}>Lupa kata sandi?</Text>
           </Pressable>
+
           <CustomButton
             style={styles.button}
             title='Login'
@@ -107,6 +126,7 @@ function Login() {
               <Text style={styles.registerText}>Registrasi</Text>
             </Pressable>
           </View>
+
           {/* Footer */}
           <Footer />
         </View>
@@ -178,5 +198,17 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     marginLeft: 5,
     fontFamily: 'PoppinsRegular',
+  },
+  btnForgot: {
+    textDecorationLine: 'underline',
+    fontFamily: 'PoppinsMedium',
+    fontSize: 12,
+    color: Colors.primaryText,
+  },
+  failed: {
+    fontFamily: 'PoppinsMedium',
+    fontSize: 10,
+    marginBottom: -20,
+    color: Colors.red100,
   },
 });
