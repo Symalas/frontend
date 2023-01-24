@@ -2,7 +2,7 @@ import { FlatList } from 'react-native';
 import LecturerClassCard from '../../micro/lecturer/classMenu/LecturerClassCard';
 import { useNavigation } from '@react-navigation/native';
 
-function LecturerClassList() {
+function LecturerClassList({ email }) {
   const navigation = useNavigation();
   const data = [
     {
@@ -32,7 +32,9 @@ function LecturerClassList() {
   ];
 
   const openClassHandler = () => {
-    navigation.navigate('LecturerMenu');
+    navigation.navigate('LecturerMenu', {
+      email: email,
+    });
   };
   const Item = ({ item }) => {
     return (

@@ -3,6 +3,7 @@ import { Image, Text, View, StyleSheet, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Footer from '../components/FooterComponent';
 import Colors from '../static/color';
+import ScreenDimension from '../static/dimensions';
 
 function Index() {
   const navigation = useNavigation();
@@ -16,6 +17,8 @@ function Index() {
       role: 'mahasiswa',
     });
   };
+
+  console.log(ScreenDimension.ScreenWidth);
 
   return (
     <SafeAreaView style={styles.container}>

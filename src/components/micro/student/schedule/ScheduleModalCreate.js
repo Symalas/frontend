@@ -15,7 +15,7 @@ import CustomButton from '../../CustomButton';
 import { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-function ScheduleModalCreate({ visible, closeModal, datas, status }) {
+function ScheduleModalCreate({ visible, closeModal, datas, status, mhsRole }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -120,7 +120,10 @@ function ScheduleModalCreate({ visible, closeModal, datas, status }) {
                   <CustomButton
                     style={[
                       styles.button,
-                      { backgroundColor: Colors.primarBlue, marginLeft: 5 },
+                      {
+                        backgroundColor: Colors.primarBlue,
+                        marginLeft: 5,
+                      },
                     ]}
                     titleStyle={styles.buttonTitle}
                     title={status === 'create' ? 'Tambah' : 'Edit'}
@@ -166,7 +169,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'PoppinsBold',
-    fontSize: 18,
+    fontSize: ScreenDimension.ScreenWidth * 0.044,
     paddingHorizontal: 10,
   },
   buttonContainer: {
@@ -186,7 +189,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
   dateContainer: {
     flexDirection: 'column',
@@ -205,7 +208,7 @@ const styles = StyleSheet.create({
     height: 25,
     width: 50,
     textAlign: 'center',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     fontFamily: 'PoppinsMedium',
     borderRadius: 5,
   },
@@ -218,6 +221,6 @@ const styles = StyleSheet.create({
   btnTitle: {
     textAlign: 'center',
     fontFamily: 'PoppinsMedium',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
 });

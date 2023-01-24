@@ -4,12 +4,17 @@ import { StyleSheet, View } from 'react-native';
 import ScreenDimension from '../../../static/dimensions';
 import Colors from '../../../static/color';
 import TaskList from '../../../components/lecturer/task/TaskList';
+import { useRoute } from '@react-navigation/native';
 
 function LecturerAttendance() {
+  const email = useRoute().params.email;
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <HeaderComponent title='Absen' />
+        <HeaderComponent
+          title='Absen'
+          email={email}
+        />
         <View style={styles.fileContainer}>
           <TaskList page='absen' />
         </View>

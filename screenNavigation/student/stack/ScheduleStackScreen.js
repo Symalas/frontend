@@ -17,12 +17,17 @@ const Tab = createMaterialTopTabNavigator();
 function ScheduleStackScreen() {
   const route = useRoute();
   const path = route.name;
+  const email = route.params.email;
+  const role = route.params.role;
+  const mhsRole = route.params.mhsRole;
   return (
     <>
       <SafeAreaView style={styles.container}>
         <HeaderComponent
           searchVisible={false}
           title='Jadwal'
+          role={role}
+          email={email}
         />
         {/* <ScheduleMenu path={path} /> */}
       </SafeAreaView>
@@ -38,7 +43,7 @@ function ScheduleStackScreen() {
           },
           tabBarLabelStyle: {
             fontFamily: 'PoppinsBold',
-            fontSize: 14,
+            fontSize: ScreenDimension.ScreenWidth * 0.034,
             textTransform: 'capitalize',
           },
           tabBarHideOnKeyboard: true,
@@ -55,12 +60,12 @@ function ScheduleStackScreen() {
       >
         <Tab.Screen
           name='mainSchedule'
-          component={Schedule}
+          component={() => <Schedule mhsRole={mhsRole} />}
           options={{ tabBarLabel: 'Jadwal Tetap' }}
         />
         <Tab.Screen
           name='replacementSchedule'
-          component={ReplacementSchedule}
+          component={() => <ReplacementSchedule mhsRole={mhsRole} />}
           options={{ tabBarLabel: 'Jadwal Pengganti' }}
         />
       </Tab.Navigator>

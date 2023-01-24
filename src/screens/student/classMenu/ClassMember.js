@@ -9,6 +9,7 @@ import { useState } from 'react';
 import EditClassMember from '../../../components/student/classMenu/EditClassMember';
 import EditClassName from '../../../components/student/classMenu/EditClassName';
 import ModalConfirm from '../../../components/micro/ModalConfirm';
+import { useRoute } from '@react-navigation/native';
 
 function ClassMember() {
   const [visible, setVisible] = useState(false);
@@ -16,6 +17,8 @@ function ClassMember() {
   const [classEdit, setClassEdit] = useState(false);
   const [name, setName] = useState();
   const [npm, setNpm] = useState();
+  const route = useRoute();
+  const mhsRole = route.params.mhsRole;
   const admin = [
     {
       name: 'Nicholaus Risang',
@@ -33,8 +36,24 @@ function ClassMember() {
       npm: '10121260',
     },
     {
+      name: 'Dylan Trino',
+      npm: '10121362',
+    },
+    {
+      name: 'Genta Swarawisesa EP',
+      npm: '10121503',
+    },
+    {
       name: 'Rehan Kurnia',
-      npm: '11120191',
+      npm: '11121089',
+    },
+    {
+      name: 'Wianda Rafa Afifah',
+      npm: '11121292',
+    },
+    {
+      name: 'Zelits Adi Putri',
+      npm: '11121331',
     },
   ];
   return (
@@ -63,7 +82,12 @@ function ClassMember() {
         <View style={styles.blueSideContainer}>
           <Image source={require('../../../../assets/people.png')} />
           <Text style={styles.classTitle}>2KA01-2022/2023</Text>
-          <Pressable onPress={() => setClassEdit(true)}>
+          <Pressable
+            style={
+              mhsRole === 'mhs' ? { display: 'none' } : { display: 'flex' }
+            }
+            onPress={() => setClassEdit(true)}
+          >
             <Text style={styles.classEdit}>edit nama kelas</Text>
           </Pressable>
           <Text style={styles.classCode}>Kode Kelas: KA2301</Text>
@@ -97,7 +121,25 @@ function ClassMember() {
                     </Text>
                   </View>
                 </View>
-                <Text style={styles.status}>{items.status}</Text>
+                {i === 0 ? (
+                  <Text style={styles.status}>{items.status}</Text>
+                ) : (
+                  <CustomButton
+                    title='edit'
+                    style={[
+                      styles.button,
+                      mhsRole === 'super-admin'
+                        ? { display: 'flex' }
+                        : { display: 'none' },
+                    ]}
+                    titleStyle={styles.titleBtn}
+                    onPress={() => {
+                      setVisible(true);
+                      setName(items.name);
+                      setNpm(items.npm);
+                    }}
+                  />
+                )}
               </View>
             );
           })}
@@ -124,7 +166,10 @@ function ClassMember() {
                     <Text
                       style={[
                         styles.memberData,
-                        { fontSize: 10, marginTop: -5 },
+                        {
+                          fontSize: ScreenDimension.ScreenWidth * 0.025,
+                          marginTop: -5,
+                        },
                       ]}
                     >
                       {items.npm}
@@ -133,7 +178,12 @@ function ClassMember() {
                 </View>
                 <CustomButton
                   title='edit'
-                  style={styles.button}
+                  style={[
+                    styles.button,
+                    mhsRole === 'mhs'
+                      ? { display: 'none' }
+                      : { display: 'flex' },
+                  ]}
                   titleStyle={styles.titleBtn}
                   onPress={() => {
                     setVisible(true);
@@ -163,19 +213,19 @@ const styles = StyleSheet.create({
   },
   classTitle: {
     fontFamily: 'PoppinsBold',
-    fontSize: 22,
+    fontSize: ScreenDimension.ScreenWidth * 0.054,
     marginTop: 3,
     color: Colors.white,
   },
   classEdit: {
     fontFamily: 'PoppinsMedium',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     color: Colors.white,
     textDecorationLine: 'underline',
   },
   classCode: {
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 16,
+    fontSize: ScreenDimension.ScreenWidth * 0.039,
     color: Colors.white,
     marginTop: 13,
   },
@@ -194,7 +244,7 @@ const styles = StyleSheet.create({
   },
   memberTitle: {
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 16,
+    fontSize: ScreenDimension.ScreenWidth * 0.039,
   },
   memberDataLeft: {
     flexDirection: 'row',
@@ -206,7 +256,7 @@ const styles = StyleSheet.create({
   status: {
     fontFamily: 'PoppinsMedium',
     color: Colors.primarBlue,
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
   button: {
     backgroundColor: Colors.primarBlue,
@@ -216,7 +266,7 @@ const styles = StyleSheet.create({
   },
   titleBtn: {
     fontFamily: 'PoppinsMedium',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     color: Colors.white,
   },
 });

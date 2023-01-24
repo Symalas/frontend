@@ -22,6 +22,8 @@ function AttendanceInput() {
   const image = route.params.image;
   const tugas = route.params.tugas;
   const minggu = route.params.minggu;
+  const email = route.params.email;
+  const role = route.params.role;
 
   return (
     <>
@@ -30,6 +32,8 @@ function AttendanceInput() {
         <HeaderComponent
           title='Absen'
           searchVisible={false}
+          email={email}
+          role={role}
         />
         <View style={styles.innerContainer}>
           <View style={styles.previewContainer}>

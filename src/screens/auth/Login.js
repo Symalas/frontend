@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   View,
+  Keyboard,
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
@@ -14,8 +15,8 @@ import CustomButton from '../../components/micro/CustomButton';
 import Footer from '../../components/FooterComponent';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ScreenDimension from '../../static/dimensions';
-import { useState } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import Navigation from '../../static/navigation/Index';
 function Login() {
   const route = useRoute();
   const navigation = useNavigation();
@@ -24,19 +25,54 @@ function Login() {
   const [pw, setPw] = useState();
   const [failed, setFailed] = useState(false);
 
+  const { navigationRoute } = Navigation();
+
+  const localInputRef = useRef();
+
+  const keyboardDidHideCallback = () => {
+    localInputRef.current.blur?.();
+  };
+
+  useEffect(() => {
+    const keyboardDidHideSubscription = Keyboard.addListener(
+      'keyboardDidHide',
+      keyboardDidHideCallback,
+    );
+
+    return () => {
+      keyboardDidHideSubscription?.remove();
+    };
+  }, []);
+
   const registerHandler = () => {
     navigation.navigate('register', {
       role: role,
     });
   };
+  const navigasi = (mhsRole) => {
+    navigation.navigate('home', {
+      role: role,
+      mhsRole: mhsRole,
+    });
+  };
 
   const loginHandler = () => {
-    if (email === 'admin@mail.com' && pw === '12345') {
-      navigation.navigate('home', {
-        role: role,
-      });
+    if (role === 'mahasiswa') {
+      if (email === 'superadmin@mail.com' && pw === '12345') {
+        navigationRoute('home', role, 'super-admin', 'superadmin@mail.com');
+      } else if (email === 'admin@mail.com' && pw === '12345') {
+        navigationRoute('home', role, 'admin', 'admin@mail.com');
+      } else if (email === 'mahasiswa@mail.com' && pw === '12345') {
+        navigationRoute('home', role, 'mhs', 'mahasiswa@mail.com');
+      } else {
+        setFailed(true);
+      }
     } else {
-      setFailed(true);
+      if (email === 'dosen@mail.com' && pw === '12345') {
+        navigationRoute('home', '', '', 'dosen@mail.com');
+      } else {
+        setFailed(true);
+      }
     }
   };
 
@@ -48,7 +84,10 @@ function Login() {
 
   return (
     <>
-      <StatusBar style='light' />
+      <StatusBar
+        style='light'
+        backgroundColor={Colors.primarBlue}
+      />
       <KeyboardAwareScrollView
         style={styles.container}
         contentContainerStyle={{ flexGrow: 1 }}
@@ -101,6 +140,9 @@ function Login() {
                 autoCapitalize='none'
                 secureTextEntry={true}
                 onChangeText={(e) => setPw(e)}
+                ref={(ref) => {
+                  localInputRef && (localInputRef.current = ref);
+                }}
               />
             </View>
           </View>

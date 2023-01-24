@@ -25,6 +25,9 @@ function FileInnerScreen() {
   const [visible, setVisible] = useState(false);
   const route = useRoute();
   const title = route.params.title;
+  const email = route.params.email;
+  const role = route.params.role;
+  const mhsRole = route.params.mhsRole;
 
   const data = [
     {
@@ -77,7 +80,11 @@ function FileInnerScreen() {
       <SelectMenu />
       <StatusBar style='dark' />
       <SafeAreaView style={styles.container}>
-        <HeaderComponent title={title} />
+        <HeaderComponent
+          title={title}
+          email={email}
+          role={role}
+        />
         <View style={styles.folderContainer}>
           <FileInnerList />
         </View>
@@ -108,10 +115,14 @@ function FileInnerScreen() {
             );
           })}
         </View>
-        <Ballon
-          onPress={() => setOpenMenu(!openMenu)}
-          icon='folder'
-        />
+        {mhsRole === 'mhs' ? (
+          ''
+        ) : (
+          <Ballon
+            onPress={() => setOpenMenu(!openMenu)}
+            icon='folder'
+          />
+        )}
       </SafeAreaView>
     </>
   );

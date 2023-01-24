@@ -1,11 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import {
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../../static/color';
@@ -14,7 +16,7 @@ import Footer from '../../../components/FooterComponent';
 import { View } from 'react-native';
 import CustomButton from '../../../components/micro/CustomButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 function PasswordForgot() {
@@ -22,6 +24,23 @@ function PasswordForgot() {
   const [email, setEmail] = useState();
   const route = useRoute();
   const role = route.params.role;
+
+  const localInputRef = useRef();
+
+  const keyboardDidHideCallback = () => {
+    localInputRef.current.blur?.();
+  };
+
+  useEffect(() => {
+    const keyboardDidHideSubscription = Keyboard.addListener(
+      'keyboardDidHide',
+      keyboardDidHideCallback,
+    );
+
+    return () => {
+      keyboardDidHideSubscription?.remove();
+    };
+  }, []);
   const sendHandler = () => {
     navigation.navigate('forgotSuccess', {
       email: email,
@@ -66,15 +85,22 @@ function PasswordForgot() {
               keyboardType='default'
               secureTextEntry={true}
               autoCapitalize='none'
+              ref={(ref) => {
+                localInputRef && (localInputRef.current = ref);
+              }}
             />
           </View>
           <View style={{ alignItems: 'center' }}>
-            <CustomButton
-              style={styles.button}
-              titleStyle={styles.buttonTitle}
-              title='Kirim'
+            <TouchableOpacity
               onPress={sendHandler}
-            />
+              activeOpacity={0.7}
+            >
+              <CustomButton
+                style={styles.button}
+                titleStyle={styles.buttonTitle}
+                title='Kirim'
+              />
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
         <Footer extraStyle={{ paddingBottom: 20 }} />

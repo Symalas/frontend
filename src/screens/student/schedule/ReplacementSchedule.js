@@ -10,7 +10,7 @@ import { useState } from 'react';
 import ModalReplacement from '../../../components/micro/student/schedule/ModalReplacement';
 import ScheduleModalCreate from '../../../components/micro/student/schedule/ScheduleModalCreate';
 
-function ReplacementSchedule() {
+function ReplacementSchedule({ mhsRole }) {
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
@@ -18,13 +18,18 @@ function ReplacementSchedule() {
         visible={openModal}
         closeModal={() => setOpenModal(false)}
         status='create'
+        mhsRole={mhsRole}
       />
       <View style={styles.container}>
-        <ScheduleList />
-        <Ballon
-          onPress={() => setOpenModal(true)}
-          icon='plus'
-        />
+        <ScheduleList mhsRole={mhsRole} />
+        {mhsRole === 'mhs' ? (
+          ''
+        ) : (
+          <Ballon
+            onPress={() => setOpenModal(true)}
+            icon='plus'
+          />
+        )}
       </View>
     </>
   );

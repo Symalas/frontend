@@ -147,11 +147,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'PoppinsBold',
-    fontSize: 18,
+    fontSize: ScreenDimension.ScreenWidth * 0.044,
     textAlign: 'center',
   },
   subTitle: {
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     fontFamily: 'PoppinsBold',
     textAlign: 'center',
   },
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     paddingLeft: 8,
     paddingTop: 10,
-    fontSize: 12,
-    width: 250,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
+    width: '100%',
     color: '#606060',
     marginTop: 15,
     marginBottom: 10,
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
   fileContainer: {
     flexDirection: 'row',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
   fileTitle: {
     fontFamily: 'PoppinsMedium',
     color: Colors.gray300,
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     marginLeft: 5,
   },
   btnAdd: {
@@ -209,11 +209,11 @@ const styles = StyleSheet.create({
   },
   txtAdd: {
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     color: Colors.white,
   },
   timer: {
-    fontSize: 9,
+    fontSize: ScreenDimension.ScreenWidth * 0.022,
     fontFamily: 'PoppinsSemiBold',
     color: Colors.red100,
     alignSelf: 'flex-start',

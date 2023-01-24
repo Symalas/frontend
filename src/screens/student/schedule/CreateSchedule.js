@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'PoppinsMedium',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     color: Colors.primaryText,
   },
   input: {
@@ -126,6 +126,6 @@ const styles = StyleSheet.create({
   txtBtn: {
     color: Colors.white,
     fontFamily: 'PoppinsMedium',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
 });

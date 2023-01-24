@@ -5,7 +5,7 @@ import { useState } from 'react';
 import DataMember from '../../micro/lecturer/DataMember';
 import { useNavigation } from '@react-navigation/native';
 
-function TaskInnerList({ page }) {
+function TaskInnerList({ page, email }) {
   const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
   const data = [
@@ -32,6 +32,7 @@ function TaskInnerList({ page }) {
             ? navigation.navigate('LecturerAttendanceData', {
                 nama: item.nama,
                 npm: item.npm,
+                email: email,
               })
             : setVisible(true)
         }

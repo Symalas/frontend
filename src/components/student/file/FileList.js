@@ -2,7 +2,7 @@ import { FlatList, Pressable, TouchableOpacity } from 'react-native';
 import File from '../../micro/student/file/File';
 import { useNavigation } from '@react-navigation/native';
 
-function FileList() {
+function FileList({ email, role, mhsRole }) {
   const navigation = useNavigation();
 
   const data = [
@@ -59,6 +59,9 @@ function FileList() {
   const fileOpenHandler = (item) => {
     navigation.navigate('fileInner', {
       title: item,
+      role: role,
+      mhsRole: mhsRole,
+      email: email,
     });
   };
 

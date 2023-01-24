@@ -4,7 +4,7 @@ import TaskAttendanceCard from '../../micro/lecturer/taskAttendance/TaskAttendan
 import ScreenDimension from '../../../static/dimensions';
 import { useNavigation } from '@react-navigation/native';
 
-function TaskList({ page }) {
+function TaskList({ page, email }) {
   const navigation = useNavigation();
   const data = [
     {
@@ -28,14 +28,16 @@ function TaskList({ page }) {
     return (
       <TaskAttendanceCard
         name={page !== 'absen' ? item.nama : item.week}
-        onPress={() =>
-          navigation.navigate(
-            page === 'absen' ? 'LecturerAttendanceInner' : 'LecturerTaskInner',
-            {
-              name: item.nama,
-            },
-          )
-        }
+        onPress={() => {
+          page === 'absen'
+            ? navigation.navigate('LecturerAttendanceInner', {
+                email: 'dosen@mail.com',
+              })
+            : navigation.navigate('LecturerTaskInner', {
+                name: item.nama,
+                email: email,
+              });
+        }}
       />
     );
   };

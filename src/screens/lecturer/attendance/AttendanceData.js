@@ -12,6 +12,7 @@ function AttendanceData() {
   const route = useRoute();
   const nama = route.params.nama;
   const npm = route.params.npm;
+  const email = route.params.email;
   return (
     <>
       <StatusBar
@@ -24,6 +25,7 @@ function AttendanceData() {
             title='Absen'
             searchVisible={false}
             extraTitleStyle={{ color: Colors.white }}
+            email={email}
           />
         </View>
 
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontFamily: 'PoppinsMedium',
-    fontSize: 20,
+    fontSize: ScreenDimension.ScreenWidth * 0.0487,
     color: '#0000009D',
     marginTop: 10,
     borderBottomColor: '#00000048',
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
   label: {
     width: '25%',
     fontFamily: 'PoppinsBold',
-    fontSize: 18,
+    fontSize: ScreenDimension.ScreenWidth * 0.044,
   },
   dataCard: {
     backgroundColor: '#EBEBEB',
@@ -129,6 +131,6 @@ const styles = StyleSheet.create({
   },
   dataTitle: {
     fontFamily: 'PoppinsMedium',
-    fontSize: 14,
+    fontSize: ScreenDimension.ScreenWidth * 0.034,
   },
 });

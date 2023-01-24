@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Colors from '../../../../static/color';
+import ScreenDimension from '../../../../static/dimensions';
 
 function TaskCard({ task, time }) {
   return (
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'PoppinsMedium',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
     color: Colors.white,
   },
 });

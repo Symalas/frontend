@@ -5,13 +5,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfileModal from '../components/ProfileModal';
 import Colors from '../static/color';
 import ScreenDimension from '../static/dimensions';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 function UserProfile() {
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState(false);
   const [title, setTitle] = useState('');
   const navigation = useNavigation();
+  const route = useRoute();
+  const role = route.params.role;
+  const email = route.params.email;
   const handleChangeName = () => {
     setVisible(true);
     setTitle('Ubah Nama');
@@ -54,7 +57,9 @@ function UserProfile() {
           </View>
           {/* NPM */}
           <View style={styles.profileGroupContainer}>
-            <Text style={styles.profileTitle}>NPM</Text>
+            <Text style={styles.profileTitle}>
+              {role === 'mahasiswa' ? 'NPM' : 'NIDN'}
+            </Text>
             <View style={styles.profileDetailContainer}>
               <Text style={styles.profileName}>10121480</Text>
             </View>
@@ -63,7 +68,7 @@ function UserProfile() {
           <View style={styles.profileGroupContainer}>
             <Text style={styles.profileTitle}>Email</Text>
             <View style={styles.profileDetailContainer}>
-              <Text style={styles.profileName}>Ferdiyansyah@gmail.com</Text>
+              <Text style={styles.profileName}>{email}</Text>
             </View>
           </View>
           {/* PW */}

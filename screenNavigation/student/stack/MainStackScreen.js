@@ -11,7 +11,6 @@ import UserProfile from '../../../src/screens/Profile';
 import Colors from '../../../src/static/color';
 import NavAnimation from '../../animation';
 import StudentTabScreen from '../tab/StudentTabScreen';
-import AttendanceInnerScreen from './AttendanceInnerScreen';
 import AttendanceInput from '../../../src/screens/student/attendance/AttendanceInput';
 import TaskCollection from '../../../src/screens/student/task/TaskCollection';
 import TaskCollectionInner from '../../../src/screens/student/task/TaskCollectionInner';

@@ -9,7 +9,7 @@ import { useState } from 'react';
 import Ballon from '../../../components/micro/Ballon';
 import { useNavigation } from '@react-navigation/native';
 
-function Schedule() {
+function Schedule({ mhsRole }) {
   const navigation = useNavigation();
   const [tableHead, setTableHead] = useState([
     'Hari',
@@ -46,10 +46,14 @@ function Schedule() {
           />
         </Table>
       </ScrollView>
-      <Ballon
-        onPress={createScheduleHandler}
-        icon='plus'
-      />
+      {mhsRole === 'mhs' ? (
+        ''
+      ) : (
+        <Ballon
+          onPress={createScheduleHandler}
+          icon='plus'
+        />
+      )}
     </View>
   );
 }
@@ -78,12 +82,12 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
   bodyTxt: {
     color: Colors.white,
     textAlign: 'center',
     fontFamily: 'PoppinsRegular',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
 });

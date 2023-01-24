@@ -5,13 +5,14 @@ import Colors from '../../static/color';
 import ScreenDimension from '../../static/dimensions';
 import { StatusBar } from 'expo-status-bar';
 import Footer from '../../components/FooterComponent';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 function LecturerMenu() {
   const navigation = useNavigation();
+  const email = useRoute().params.email;
 
   const handleTugas = () => {
-    navigation.navigate('LecturerTask');
+    navigation.navigate('LecturerTask', { email: email });
   };
   return (
     <>
@@ -21,6 +22,7 @@ function LecturerMenu() {
           <HeaderComponent
             title='Tugas & Absen'
             searchVisible={false}
+            email={email}
           />
         </View>
         <View style={styles.innerContainer}>
@@ -34,7 +36,11 @@ function LecturerMenu() {
           <TouchableOpacity
             activeOpacity={0.8}
             style={[styles.btn, { marginTop: 50 }]}
-            onPress={() => navigation.navigate('LecturerAttendance')}
+            onPress={() =>
+              navigation.navigate('LecturerAttendance', {
+                email: email,
+              })
+            }
           >
             <Text style={styles.txt}>Kelas</Text>
           </TouchableOpacity>

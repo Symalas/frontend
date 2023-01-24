@@ -1,16 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FileStackScreen from '../stack/FileStackScreen';
-import TaskStackScreen from '../stack/TaskStackScreen';
-import Schedule from '../../../src/screens/student/schedule/Schedule';
 import Attendance from '../../../src/screens/student/attendance/Attendance';
 import Colors from '../../../src/static/color';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import AttendanceScreen from '../stack/AttendanceScreen';
 import ScheduleStackScreen from '../stack/ScheduleStackScreen';
+import FileScreen from '../../../src/screens/student/file/FileScreen';
+import StudentTask from '../../../src/screens/student/task/Task';
 const Tab = createBottomTabNavigator();
 const StudentTabScreen = ({ route }) => {
+  const email = route.params.email;
+  const role = route.params.role;
+  const mhsRole = route.params.mhsRole;
   console.log('add', route.name);
   return (
     <Tab.Navigator
@@ -31,7 +32,13 @@ const StudentTabScreen = ({ route }) => {
     >
       <Tab.Screen
         name='File'
-        component={FileStackScreen}
+        component={() => (
+          <FileScreen
+            email={email}
+            role={role}
+            mhsRole={mhsRole}
+          />
+        )}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -45,7 +52,13 @@ const StudentTabScreen = ({ route }) => {
       />
       <Tab.Screen
         name='Tugas'
-        component={TaskStackScreen}
+        component={() => (
+          <StudentTask
+            role={role}
+            mhsRole={mhsRole}
+            email={email}
+          />
+        )}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -58,8 +71,14 @@ const StudentTabScreen = ({ route }) => {
         }}
       />
       <Tab.Screen
+        initialParams={{ email: email, role: role, mhsRole: mhsRole }}
         name='Jadwal'
-        component={ScheduleStackScreen}
+        component={
+          ScheduleStackScreen
+          // email={email}
+          // role={role}
+          // mhsRole={mhsRole}
+        }
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
@@ -73,7 +92,13 @@ const StudentTabScreen = ({ route }) => {
       />
       <Tab.Screen
         name='Absen'
-        component={AttendanceScreen}
+        component={() => (
+          <Attendance
+            email={email}
+            role={role}
+            mhsRole={mhsRole}
+          />
+        )}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

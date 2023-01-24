@@ -19,6 +19,8 @@ function Home() {
   // const [matkul, setMatkul] = useState(false);
   const route = useRoute();
   const role = route.params.role;
+  const mhsRole = route.params.mhsRole;
+  const email = route.params.email;
 
   const modalOpen = () => {
     if (role === 'mahasiswa') {
@@ -65,7 +67,10 @@ function Home() {
   return (
     <>
       <SelectMenu />
-      <StatusBar style='dark' />
+      <StatusBar
+        style='dark'
+        backgroundColor='white'
+      />
       <ModalInput
         visible={modalVisible}
         closeModal={modalClose}
@@ -74,9 +79,19 @@ function Home() {
       <SafeAreaView style={styles.container}>
         <HeaderComponent
           title={role === 'mahasiswa' ? 'Kelas' : 'Mata Kuliah'}
+          role={role}
+          email={email}
         />
         <View style={styles.contentContainer}>
-          {role === 'mahasiswa' ? <HomeComponent /> : <MatkulList />}
+          {role === 'mahasiswa' ? (
+            <HomeComponent
+              email={email}
+              role={role}
+              mhsRole={mhsRole}
+            />
+          ) : (
+            <MatkulList email={email} />
+          )}
         </View>
         <Ballon
           onPress={modalOpen}
@@ -94,6 +109,7 @@ const styles = StyleSheet.create({
     width: ScreenDimension.ScreenWidth,
     height: ScreenDimension.ScreenHeight,
     flex: 1,
+    backgroundColor: Colors.white,
   },
   contentContainer: {
     paddingHorizontal: 35,

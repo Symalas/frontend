@@ -4,12 +4,19 @@ import { StyleSheet, View } from 'react-native';
 import Colors from '../../static/color';
 import ScreenDimension from '../../static/dimensions';
 import MemberList from '../../components/lecturer/MemberList';
+import { useRoute } from '@react-navigation/native';
 
 function MemberListScreen() {
+  const route = useRoute().params;
+  const email = route.email;
+
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <HeaderComponent title='Daftar Mahasiswa' />
+        <HeaderComponent
+          title='Daftar Mahasiswa'
+          email={email}
+        />
         <View style={{ marginTop: 20 }}>
           <MemberList />
         </View>

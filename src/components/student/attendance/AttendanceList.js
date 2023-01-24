@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import AttendanceCard from '../../micro/student/attendance/AttendanceCard';
 
-function AttendanceList() {
+function AttendanceList({ email, role }) {
   const navigation = useNavigation();
   const data = [
     {
@@ -60,6 +60,8 @@ function AttendanceList() {
   const openAttendance = (item) => {
     navigation.navigate('AttendanceInner', {
       matkul: item,
+      email: email,
+      role: role,
     });
   };
 

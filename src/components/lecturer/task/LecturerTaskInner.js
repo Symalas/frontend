@@ -22,6 +22,7 @@ function LecturerTaskInner() {
         <HeaderComponent
           title={route.params.name}
           extraTitleStyle={{ fontSize: 20 }}
+          email={route.params.email}
         />
         <View>
           <TaskInnerList />

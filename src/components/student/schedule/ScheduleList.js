@@ -6,7 +6,7 @@ import { useState } from 'react';
 import ModalReplacement from '../../micro/student/schedule/ModalReplacement';
 import ScheduleModalCreate from '../../micro/student/schedule/ScheduleModalCreate';
 
-function ScheduleList() {
+function ScheduleList({ mhsRole }) {
   const navigation = useNavigation();
   const [openModal, setOpenModal] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
@@ -19,7 +19,7 @@ function ScheduleList() {
     },
     {
       id: 2,
-      tugas: 'Teknik Pemrograman Terstruktur TUKUR TUKUR TUKUR',
+      tugas: 'Teknik Pemrograman Terstruktur',
       ajar: '30 Oktober 2022',
     },
     {
@@ -46,6 +46,7 @@ function ScheduleList() {
         closeModal={() => setOpenModal(false)}
         datas={schData}
         edit={handleEdit}
+        mhsRole={mhsRole}
       />
       <ScheduleModalCreate
         visible={openCreate}

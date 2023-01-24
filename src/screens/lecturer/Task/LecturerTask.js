@@ -5,14 +5,19 @@ import Colors from '../../../static/color';
 import ScreenDimension from '../../../static/dimensions';
 import { View } from 'react-native';
 import TaskList from '../../../components/lecturer/task/TaskList';
+import { useRoute } from '@react-navigation/native';
 
 function LecturerTask() {
+  const email = useRoute().params.email;
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <HeaderComponent title='Tugas' />
+        <HeaderComponent
+          title='Tugas'
+          email={email}
+        />
         <View style={styles.fileContainer}>
-          <TaskList />
+          <TaskList email={email} />
         </View>
       </SafeAreaView>
     </>

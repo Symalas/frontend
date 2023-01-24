@@ -1,5 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, Pressable, StyleSheet, Text, TextInput } from 'react-native';
+import {
+  Image,
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../../static/color';
 import ScreenDimension from '../../../static/dimensions';
@@ -8,7 +16,7 @@ import { View } from 'react-native';
 import CustomButton from '../../../components/micro/CustomButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function PasswordForgotOtp() {
   const navigation = useNavigation();
@@ -25,6 +33,23 @@ function PasswordForgotOtp() {
 
   const email = route.params.email;
   const role = route.params.role;
+
+  const localInputRef = useRef();
+
+  const keyboardDidHideCallback = () => {
+    localInputRef.current.blur?.();
+  };
+
+  useEffect(() => {
+    const keyboardDidHideSubscription = Keyboard.addListener(
+      'keyboardDidHide',
+      keyboardDidHideCallback,
+    );
+
+    return () => {
+      keyboardDidHideSubscription?.remove();
+    };
+  }, []);
 
   const handleText1 = (e) => {
     setTxt1(e);
@@ -134,7 +159,12 @@ function PasswordForgotOtp() {
                 keyboardType='numeric'
                 autoCapitalize='none'
                 maxLength={1}
-                ref={text4}
+                // ref={text4}
+                ref={(ref) => {
+                  (text4.current = ref) &&
+                    localInputRef &&
+                    (localInputRef.current = ref);
+                }}
                 onChangeText={handleText4}
                 onKeyPress={({ nativeEvent }) => {
                   if (nativeEvent.key === 'Backspace') {
@@ -148,12 +178,16 @@ function PasswordForgotOtp() {
             <Text style={styles.codeAgain}>Kirim Ulang Kode</Text>
           </Pressable>
           <View style={{ alignItems: 'center' }}>
-            <CustomButton
-              style={styles.button}
-              titleStyle={styles.buttonTitle}
-              title='Kirim'
+            <TouchableOpacity
               onPress={sendHandler}
-            />
+              activeOpacity={0.7}
+            >
+              <CustomButton
+                style={styles.button}
+                titleStyle={styles.buttonTitle}
+                title='Kirim'
+              />
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
         <Footer extraStyle={{ paddingBottom: 20 }} />

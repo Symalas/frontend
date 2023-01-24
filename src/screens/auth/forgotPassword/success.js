@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.blue800,
-    fontSize: 20,
+    fontSize: ScreenDimension.ScreenWidth * 0.0487,
     width: ScreenDimension.ScreenWidth - 100,
     textAlign: 'center',
     fontFamily: 'PoppinsBold',
@@ -89,14 +89,15 @@ const styles = StyleSheet.create({
   msg: {
     color: Colors.blue800,
     fontFamily: 'PoppinsBold',
-    fontSize: 16,
+    fontSize: ScreenDimension.ScreenWidth * 0.039,
     textAlign: 'center',
     width: ScreenDimension.ScreenWidth - 50,
   },
   button: {
     backgroundColor: Colors.primarBlue,
     height: 45,
-    width: 210,
+    // width: 210,
+    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
@@ -105,6 +106,6 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: Colors.white,
     fontFamily: 'PoppinsBold',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
 });

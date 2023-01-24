@@ -5,16 +5,21 @@ import AttendanceList from '../../../components/student/attendance/AttendanceLis
 import Colors from '../../../static/color';
 import ScreenDimension from '../../../static/dimensions';
 
-function Attendance() {
+function Attendance({ email, role, mhsRole }) {
   return (
     <>
       <SafeAreaView style={styles.container}>
         <HeaderComponent
           title='Absen'
           searchVisible={false}
+          email={email}
+          role={role}
         />
         <View style={styles.innerContainer}>
-          <AttendanceList />
+          <AttendanceList
+            email={email}
+            role={role}
+          />
         </View>
       </SafeAreaView>
     </>

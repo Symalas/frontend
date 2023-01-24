@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import AttendanceCard from '../../micro/student/attendance/AttendanceCard';
 
-function AttendanceInnerList({ matkul }) {
+function AttendanceInnerList({ matkul, email, role }) {
   const navigation = useNavigation();
   const data = [
     {
@@ -27,6 +27,8 @@ function AttendanceInnerList({ matkul }) {
       image: '',
       tugas: matkul,
       minggu: minggu,
+      email: email,
+      role: role,
     });
   };
 

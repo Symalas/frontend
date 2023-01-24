@@ -10,15 +10,23 @@ import { useRoute } from '@react-navigation/native';
 function AttendanceInner() {
   const route = useRoute();
   const mata = route.params.matkul;
+  const email = route.params.email;
+  const role = route.params.role;
   return (
     <>
       <SafeAreaView style={styles.container}>
         <HeaderComponent
           title='Absen'
           searchVisible={false}
+          email={email}
+          role={role}
         />
         <View style={styles.innerContainer}>
-          <AttendanceInnerList matkul={mata} />
+          <AttendanceInnerList
+            matkul={mata}
+            email={email}
+            role={role}
+          />
         </View>
       </SafeAreaView>
     </>

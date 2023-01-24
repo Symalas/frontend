@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Colors from '../../static/color';
+import ScreenDimension from '../../static/dimensions';
 
 function StudentClass({ title }) {
   return (
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: 'PoppinsBold',
-    fontSize: 18,
+    fontSize: ScreenDimension.ScreenWidth * 0.044,
     marginLeft: 20,
   },
   img: {

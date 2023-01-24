@@ -52,7 +52,10 @@ function CameraMenu() {
   };
   return (
     <>
-      <StatusBar style='light' />
+      <StatusBar
+        style='light'
+        backgroundColor={Colors.black}
+      />
       <View style={{ flex: 1, backgroundColor: Colors.black }}>
         <PinchGestureHandler onGestureEvent={(event) => changeZoom(event)}>
           <View style={styles.cameraContainer}>

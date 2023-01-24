@@ -7,9 +7,11 @@ import TaskInnerList from '../../../components/lecturer/task/TaskInnerList';
 import Ballon from '../../../components/micro/Ballon';
 import { useState } from 'react';
 import ModalTaskUpload from '../../../components/micro/lecturer/taskAttendance/ModalTaskUpload';
+import { useRoute } from '@react-navigation/native';
 
 function AttendanceInnerL() {
   const [visible, setVisible] = useState(false);
+  const email = useRoute().params.email;
   return (
     <>
       <ModalTaskUpload
@@ -20,9 +22,13 @@ function AttendanceInnerL() {
         <HeaderComponent
           title='Absen'
           extraTitleStyle={{ fontSize: 20 }}
+          email={email}
         />
         <View>
-          <TaskInnerList page='absen' />
+          <TaskInnerList
+            page='absen'
+            email={email}
+          />
         </View>
       </SafeAreaView>
     </>

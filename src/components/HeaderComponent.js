@@ -9,11 +9,21 @@ import {
 import Colors from '../static/color';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
-function HeaderComponent({ title, extraTitleStyle, searchVisible, subTitle }) {
+import Navigation from '../static/navigation/Index';
+import ScreenDimension from '../static/dimensions';
+function HeaderComponent({
+  title,
+  extraTitleStyle,
+  searchVisible,
+  subTitle,
+  role,
+  email,
+}) {
   const navigation = useNavigation();
+
+  const { navigationRoute } = Navigation();
   const profileHandler = () => {
-    navigation.navigate('userProfile');
+    navigationRoute('userProfile', role, '', email);
   };
   return (
     <View style={styles.container}>
@@ -76,7 +86,7 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.headerTitle,
     fontFamily: 'PoppinsBold',
-    fontSize: 25,
+    fontSize: ScreenDimension.ScreenWidth * 0.058,
   },
   img: {
     height: 45,
@@ -98,7 +108,7 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontFamily: 'PoppinsRegular',
-    fontSize: 16,
+    fontSize: ScreenDimension.ScreenWidth * 0.039,
     color: Colors.headerTitle,
   },
 });

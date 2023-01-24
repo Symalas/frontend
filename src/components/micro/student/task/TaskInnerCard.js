@@ -8,6 +8,7 @@ import {
 import Colors from '../../../../static/color';
 import TaskUploadModal from './TaskUploadModal';
 import { useState } from 'react';
+import ScreenDimension from '../../../../static/dimensions';
 
 function TaskInnerCard({ title, deadline, status, date }) {
   const [visible, setVisible] = useState(false);
@@ -87,11 +88,11 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontFamily: 'PoppinsSemiBold',
     color: Colors.white,
-    fontSize: 15,
+    fontSize: ScreenDimension.ScreenWidth * 0.0365,
   },
   carddeadline: {
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 8,
+    fontSize: ScreenDimension.ScreenWidth * 0.02,
     paddingHorizontal: 20,
     textAlign: 'center',
     color: Colors.white,
@@ -104,6 +105,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     alignSelf: 'flex-end',
     padding: 5,
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
 });

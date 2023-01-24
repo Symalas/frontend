@@ -6,9 +6,12 @@ import ScreenDimension from '../../../static/dimensions';
 import Ballon from '../../../components/micro/Ballon';
 import { useState } from 'react';
 import ModalInput from '../../../components/micro/Modal';
+import { useRoute } from '@react-navigation/native';
+import Colors from '../../../static/color';
 
 function LecturerClass() {
   const [openMenu, setOpenMenu] = useState(false);
+  const email = useRoute().params.email;
   return (
     <>
       <ModalInput
@@ -17,9 +20,12 @@ function LecturerClass() {
         menu='kelas'
       />
       <SafeAreaView style={styles.container}>
-        <HeaderComponent title='Kelas' />
+        <HeaderComponent
+          title='Kelas'
+          email={email}
+        />
         <View style={styles.innerContainer}>
-          <LecturerClassList />
+          <LecturerClassList email={email} />
         </View>
       </SafeAreaView>
       <Ballon
@@ -37,6 +43,8 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
     alignItems: 'center',
+    height: ScreenDimension.ScreenHeight + 200,
+    backgroundColor: Colors.white,
   },
   innerContainer: {
     marginTop: 30,

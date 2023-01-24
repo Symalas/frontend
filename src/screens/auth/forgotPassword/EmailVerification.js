@@ -6,6 +6,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../../static/color';
@@ -16,19 +18,38 @@ import CustomButton from '../../../components/micro/CustomButton';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 function PasswordForgotEmail() {
   const navigation = useNavigation();
   const route = useRoute();
   const [email, setEmail] = useState();
-
+  const input = useRef();
   const role = route.params.role;
+
+  const localInputRef = useRef();
+
+  const keyboardDidHideCallback = () => {
+    localInputRef.current.blur?.();
+  };
   const sendHandler = () => {
     navigation.navigate('forgotOtp', {
       email: email,
       role: role,
     });
   };
+
+  useEffect(() => {
+    const keyboardDidHideSubscription = Keyboard.addListener(
+      'keyboardDidHide',
+      keyboardDidHideCallback,
+    );
+
+    return () => {
+      keyboardDidHideSubscription?.remove();
+    };
+  }, []);
   return (
     <>
       <StatusBar style='dark' />
@@ -56,16 +77,21 @@ function PasswordForgotEmail() {
               placeholder='mail@mail.com'
               keyboardType='email-address'
               autoCapitalize='none'
-              onChangeText={(evt) => setEmail(evt)}
+              onChangeText={setEmail}
+              blurOnSubmit={false}
+              ref={(ref) => {
+                localInputRef && (localInputRef.current = ref);
+              }}
             />
           </View>
           <View style={{ alignItems: 'center' }}>
-            <CustomButton
-              style={styles.button}
-              titleStyle={styles.buttonTitle}
-              title='Kirim'
+            <TouchableOpacity
               onPress={sendHandler}
-            />
+              activeOpacity={0.7}
+              style={styles.button}
+            >
+              <Text style={styles.buttonTitle}>Kirim</Text>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
         <Footer extraStyle={{ paddingBottom: 20 }} />
@@ -129,8 +155,8 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: Colors.primarBlue,
-    height: 35,
-    width: 170,
+    height: 45,
+    width: 200,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,

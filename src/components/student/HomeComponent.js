@@ -13,8 +13,9 @@ import { Entypo } from '@expo/vector-icons';
 import { useState } from 'react';
 import InputClassCode from './classMenu/InputClassCode';
 import ModalValidation from '../ModalValidation';
+import Navigation from '../../static/navigation/Index';
 
-function HomeComponent() {
+function HomeComponent({ email, role, mhsRole }) {
   const navigation = useNavigation();
   const [openMenu, setOpenMenu] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -23,7 +24,7 @@ function HomeComponent() {
   const [validationTitle, setValidationTitle] = useState();
   const [validationStatus, setValidationStatus] = useState();
   const [validationBtn, setValidaitonBtn] = useState();
-
+  const { navigationRoute } = Navigation();
   const data = [
     {
       id: 1,
@@ -84,9 +85,8 @@ function HomeComponent() {
   };
 
   const openClass = () => {
-    navigation.navigate('fileScreen', {
-      header: true,
-    });
+    navigation.navigate('fileScreen');
+    navigationRoute('fileScreen', role, mhsRole, email);
     navigation.setOptions({ title: 'Anjay' });
   };
 
@@ -98,16 +98,30 @@ function HomeComponent() {
           openMenu === true ? { display: 'flex' } : { display: 'none' },
         ]}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('ClassSetting')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('ClassSetting', { mhsRole: mhsRole })
+          }
+        >
           <Text style={styles.menuTitle}>Pengaturan Kelas</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setVisible(true)}
-          style={{ marginTop: 5 }}
+          style={
+            mhsRole === 'mhs'
+              ? { display: 'none' }
+              : { display: 'flex', marginTop: 5 }
+          }
         >
           <Text style={styles.menuTitle}>Masukkan Kode Kelas</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={{ marginTop: 5 }}>
+        <TouchableOpacity
+          style={
+            mhsRole === 'mhs'
+              ? { display: 'none' }
+              : { display: 'flex', marginTop: 5 }
+          }
+        >
           <Text style={styles.menuTitle}>Hapus Kelas</Text>
         </TouchableOpacity>
       </View>

@@ -10,7 +10,7 @@ import Ballon from '../../../components/micro/Ballon';
 import ModalInput from '../../../components/micro/Modal';
 import { useState } from 'react';
 
-function FileScreen() {
+function FileScreen({ email, role, mhsRole }) {
   const [visible, setVisible] = useState(false);
   return (
     <>
@@ -19,16 +19,31 @@ function FileScreen() {
         closeModal={() => setVisible(false)}
         menu='folder'
       />
-      <StatusBar style='dark' />
+      <StatusBar
+        style='dark'
+        backgroundColor='white'
+      />
       <SafeAreaView style={styles.container}>
-        <HeaderComponent title='Berkas' />
-        <View style={styles.fileContainer}>
-          <FileList />
-        </View>
-        <Ballon
-          onPress={() => setVisible(true)}
-          icon='folder'
+        <HeaderComponent
+          title='Berkas'
+          email={email}
+          role={role}
         />
+        <View style={styles.fileContainer}>
+          <FileList
+            email={email}
+            role={role}
+            mhsRole={mhsRole}
+          />
+        </View>
+        {mhsRole === 'mhs' ? (
+          ''
+        ) : (
+          <Ballon
+            onPress={() => setVisible(true)}
+            icon='folder'
+          />
+        )}
       </SafeAreaView>
     </>
   );

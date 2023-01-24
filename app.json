@@ -19,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ferdirns.symalas"
     },
     "android": {
       "package": "com.ferdirns.symalas",
@@ -31,7 +32,8 @@
       "favicon": "./assets/icon-config.png"
     },
     "androidStatusBar": {
-      "translucent": true
+      "translucent": false,
+      "backgroundColor": "#FFFFFF"
     },
     "extra": {
       "eas": {

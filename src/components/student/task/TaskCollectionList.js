@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList, TouchableOpacity, View } from 'react-native';
 import TaskCard from '../../micro/student/task/TaskCard';
 
-function TaskCollectionList() {
+function TaskCollectionList({ role, email }) {
   const navigation = useNavigation();
   const data = [
     {
@@ -20,45 +20,14 @@ function TaskCollectionList() {
       tugas: 'Sistem basis Data',
       tahun: 'PTA 2022/2023',
     },
-    {
-      id: 4,
-      tugas: 'Matematika Sistem Informasi',
-      tahun: 'PTA 2022/2023',
-    },
-    {
-      id: 5,
-      tugas: 'Bahasa Indonesia',
-      tahun: 'PTA 2022/2023',
-    },
-    {
-      id: 6,
-      tugas: 'Bahasa Inggris',
-      tahun: 'PTA 2022/2023',
-    },
-    {
-      id: 7,
-      tugas: 'Bahasa Inggris',
-      tahun: 'PTA 2022/2023',
-    },
-    {
-      id: 8,
-      tugas: 'Bahasa Inggris',
-      tahun: 'PTA 2022/2023',
-    },
-    {
-      id: 9,
-      tugas: 'Bahasa Inggris',
-      tahun: 'PTA 2022/2023',
-    },
-    {
-      id: 10,
-      tugas: 'Bahasa Inggris',
-      tahun: 'PTA 2022/2023',
-    },
   ];
 
-  const openTask = () => {
-    navigation.navigate('taskCollectionInner');
+  const openTask = (tugas) => {
+    navigation.navigate('taskCollectionInner', {
+      tugas: tugas,
+      role: role,
+      email: email,
+    });
   };
 
   return (
@@ -68,7 +37,7 @@ function TaskCollectionList() {
       renderItem={({ item, index }) => (
         <TouchableOpacity
           key={index.toString()}
-          onPress={openTask}
+          onPress={() => openTask(item.tugas)}
           activeOpacity={0.9}
         >
           <TaskCard

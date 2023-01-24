@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Matkul from '../../micro/lecturer/matkul/Matkul';
 import { useNavigation } from '@react-navigation/native';
 
-function MatkulList() {
+function MatkulList({ email }) {
   const navigation = useNavigation();
   const data = [
     {
@@ -45,11 +45,15 @@ function MatkulList() {
   ];
 
   const openClasHandler = () => {
-    navigation.navigate('LecturerClass');
+    navigation.navigate('LecturerClass', {
+      email: email,
+    });
   };
 
   const openSettingHandler = () => {
-    navigation.navigate('LecturerMemberList');
+    navigation.navigate('LecturerMemberList', {
+      email: email,
+    });
   };
 
   const Item = ({ item }) => {

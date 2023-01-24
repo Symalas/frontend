@@ -12,7 +12,7 @@ import Colors from '../../../../static/color';
 import ScreenDimension from '../../../../static/dimensions';
 import CustomButton from '../../CustomButton';
 
-function ModalInput({ visible, closeModal, datas, edit }) {
+function ModalInput({ visible, closeModal, datas, edit, mhsRole }) {
   const data = [
     {
       title: 'Tanggal',
@@ -64,7 +64,13 @@ function ModalInput({ visible, closeModal, datas, edit }) {
                   <CustomButton
                     style={[
                       styles.button,
-                      { backgroundColor: Colors.primarBlue, marginLeft: 5 },
+                      mhsRole === 'mhs'
+                        ? { display: 'none' }
+                        : {
+                            display: 'flex',
+                            backgroundColor: Colors.primarBlue,
+                            marginLeft: 5,
+                          },
                     ]}
                     titleStyle={styles.buttonTitle}
                     title='Edit'

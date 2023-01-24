@@ -102,13 +102,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 20,
     borderRadius: 9,
+    width: ScreenDimension.ScreenWidth * 0.7,
   },
   formContainer: {
     alignItems: 'flex-end',
   },
   title: {
     fontFamily: 'PoppinsBold',
-    fontSize: 18,
+    fontSize: ScreenDimension.ScreenWidth * 0.044,
     textAlign: 'center',
   },
   input: {
@@ -117,8 +118,8 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     height: 35,
     paddingLeft: 8,
-    fontSize: 12,
-    width: 250,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
+    width: '100%',
     color: '#606060',
     marginVertical: 15,
   },
@@ -136,6 +137,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
     textAlign: 'center',
     fontFamily: 'PoppinsSemiBold',
-    fontSize: 12,
+    fontSize: ScreenDimension.ScreenWidth * 0.03,
   },
 });
